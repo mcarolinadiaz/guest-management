@@ -1,0 +1,19 @@
+.navbar {
+    background-color: var(--dark-blue);
+    color: var(--dark-light-gray);
+    padding: 20px;
+}
+
+.navbar-brand {
+    color: var(--dark-light-gray);
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    width: -webkit-fill-available;
+}
+
+.navbar-menu {
+    margin-left: auto;
+}
