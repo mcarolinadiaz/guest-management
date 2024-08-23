@@ -1,26 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { GuestsService } from '../service/guests.service';
-import { CardComponent } from '../card/card.component';
 import { CommonModule } from '@angular/common';
+import { CardComponent } from "../card/card.component";
 
 @Component({
-  selector: 'app-confirmed-guests',
+  selector: 'app-list-guest',
   standalone: true,
   imports: [CommonModule, CardComponent],
-  templateUrl: './confirmed-guests.component.html',
-  styleUrl: './confirmed-guests.component.scss'
+  templateUrl: './list-guest.component.html',
+  styleUrl: './list-guest.component.scss'
 })
-export class ConfirmedGuestsComponent implements OnInit {
+export class ListGuestComponent implements OnInit {
   guests!: any[];
   
   constructor(private guestsService: GuestsService) {}
 
   ngOnInit(): void {
-    this.getConfirmedGuests();
+    this.getGuests();
   }
   
-  getConfirmedGuests() {
-    this.guestsService.getConfirmedGuests().subscribe((value: any[]) => {
+  getGuests() {
+    this.guestsService.getGuests().subscribe((value: any[]) => {
       console.log(value);
       let result = value.map((item: any) => {
         item.price = this.formatNumberWithCommas('' + this.guestsService.calculatePrice(item.meat, item.salad));

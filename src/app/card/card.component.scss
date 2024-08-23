@@ -1,0 +1,51 @@
+.card {
+    display: flex;
+    padding: 10px;
+    height: 195px;
+}
+
+.img {
+    align-self: center;
+}
+
+.card-content {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    align-items: center;
+}
+
+.card-salad {
+    display: flex;
+    flex-direction: row;
+    height: 24px;
+}
+
+.card-price, .card-edition {
+    margin-left: auto;
+    font-weight: 800;
+}
+
+.card-userName {
+    font-weight: 800;
+}
+
+.card-meat, .card-salad {
+    font-size: x-small;
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.card-salad-item {
+    display: flex;
+    align-items: center;
+}
+
+.card-edition {
+    display: flex;
+}
+
+
+.card-edition-item.pencil {
+    padding-right: 3px;
+}
