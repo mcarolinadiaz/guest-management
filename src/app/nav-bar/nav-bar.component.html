@@ -5,7 +5,7 @@
             {{sectionTitle}}
       </div>
       <div class="navbar-menu">
-        <app-dropdown-menu></app-dropdown-menu>
+        <app-dropdown-menu (sectionTitle)="setSectionTitle($event)"></app-dropdown-menu>
       </div>
     </div>
   </nav>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DropdownMenuComponent } from "./dropdown-menu/dropdown-menu.component";
 
 @Component({
@@ -8,7 +8,14 @@ import { DropdownMenuComponent } from "./dropdown-menu/dropdown-menu.component";
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent {
+export class NavBarComponent implements OnInit{
   title = 'Asado';
-  sectionTitle = 'Invitados';
+  sectionTitle: string = 'Invitados';
+
+  ngOnInit(): void {
+  }
+
+  setSectionTitle(value: string) {
+    this.sectionTitle = value;
+  }
 }
