@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GuestsService } from '../service/guests.service';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from "../card/card.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-guest',
@@ -13,7 +14,9 @@ import { CardComponent } from "../card/card.component";
 export class ListGuestComponent implements OnInit {
   guests!: any[];
   
-  constructor(private guestsService: GuestsService) {}
+  constructor(private guestsService: GuestsService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getGuests();
@@ -38,5 +41,9 @@ export class ListGuestComponent implements OnInit {
     }
 
     return number.toLocaleString('es-AR');
+  }
+
+  onCreateGuest() {
+    this.router.navigate(['edit-guest']);
   }
 }

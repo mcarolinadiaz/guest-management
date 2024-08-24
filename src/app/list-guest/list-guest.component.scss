@@ -1,5 +1,11 @@
 .container {
     display: flex;
+    //flex-flow: wrap;
+    //justify-content: center;
+}
+
+.container-list-guests {
+    display: flex;
     flex-flow: wrap;
     justify-content: center;
 }
@@ -7,4 +13,13 @@
 .list-guests {
     //display: inline-grid;
     padding: 20px;
+}
+
+.create-guest {
+    margin-top: auto;
+}
+
+.creation-button {
+    border: 0;
+    background: none;
 }

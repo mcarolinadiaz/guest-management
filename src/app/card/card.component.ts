@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GuestsService } from '../service/guests.service';
 
 @Component({
   selector: 'app-card',
@@ -11,6 +13,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardComponent implements OnInit {
   @Input() guest!: any;
 
+  constructor(private router: Router, 
+    private guestsService: GuestsService) {}
+
   ngOnInit(): void {
     
   }
@@ -21,5 +26,13 @@ export class CardComponent implements OnInit {
       result = this.guest.salad.length > 1 && index === 0;
     }
     return result;
+  }
+
+  onEditGuest() {
+    this.guestsService.getGuestById(this.guest.id).subscribe((value: any) => {
+      if (value) {
+        this.router.navigate(['edit-guest', this.guest.id]);
+      }
+    });
   }
 }

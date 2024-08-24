@@ -18,6 +18,7 @@ export const routes: Routes = [
         { path: '', redirectTo: 'guests', pathMatch: 'full' }, // ruta por defecto al cargar HomeComponent
         { path: 'confirmed-guests', component: ConfirmedGuestsComponent },
         { path: 'guests', component: ListGuestComponent },
+        { path: 'edit-guest/:id', component: EditGuestComponent},
         { path: 'edit-guest', component: EditGuestComponent}
       ]
     },

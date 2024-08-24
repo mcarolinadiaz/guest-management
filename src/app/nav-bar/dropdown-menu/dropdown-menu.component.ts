@@ -17,6 +17,6 @@ export class DropdownMenuComponent {
 
   changeSectionTitle(value: string, path: string) {
     this.sectionTitle.emit(value);
-    this.router.navigate([path])
+    this.router.navigate([path]);
   }
 }
