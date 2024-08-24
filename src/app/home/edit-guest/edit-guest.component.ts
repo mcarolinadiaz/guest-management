@@ -21,6 +21,7 @@ export class EditGuestComponent implements OnInit {
       if (params && params['id']) {
         this.id = params['id'];
         this.guestsService.getGuestById(this.id).subscribe((guest: any) => {
+          this.guest = {};
           this.guest.id = this.id;
           this.guest.userName = guest.userName;
           this.guest.meat = guest.meat;

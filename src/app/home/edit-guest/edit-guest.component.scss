@@ -4,9 +4,27 @@
 
 .row-container {
     width: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-container-inside {
+    display: flex;
+    flex-direction: column;
 }
 
 .edit-container {
-    justify-content: center;
     display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+/*
+.col.container-button {
+    margin-left: auto;
+    display: flex;
+}
+*/
+.submit-button {
+    display: flex;
+    margin-left: auto;
 }
