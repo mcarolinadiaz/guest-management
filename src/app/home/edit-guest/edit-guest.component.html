@@ -1,5 +1,5 @@
 <div class="edit-container">
-    <form class="row row-container">
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="row row-container">
         <!--div class="row row-container">
             <div class="col img">
                 <img src="assets/user-circle-thin.svg" width="180px" height="180px">
@@ -64,26 +64,57 @@
             </div>
         </div-->
         <div class="col">
-            <div class="row row-container-inside">
+            <div class="row">
                 <div class="col img">
                     <img src="assets/user-circle-thin.svg" width="180px" height="180px">
                 </div>
                 <div class="col">
+                    <div class="info-title">Datos personales</div>
+                    <hr>
                     <div class="row row-container-inside">
                         <div class="col">
                             <label for="inputName" class="form-label">Nombre</label>
-                            <input type="text" class="form-control" id="inputName">
+                            <input type="text" class="form-control" id="inputName" formControlName="inputName">
+                            <div *ngIf="editForm.get('inputName')?.invalid && editForm.get('inputName')?.touched" class="text-danger">
+                                Nombre es requerido y debe tener al menos 2 caracteres.
+                              </div>
                         </div>
                         <div class="col">
-                            <label for="inputName" class="form-label">Apellido</label>
-                            <input type="text" class="form-control" id="inputName">
+                            <label for="inputLastname" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="inputLastname" formControlName="inputLastname">
+                            <div *ngIf="editForm.get('inputLastname')?.invalid && editForm.get('inputLastname')?.touched" class="text-danger">
+                                Apellido es requerido y debe tener al menos 2 caracteres.
+                              </div>
                         </div>
+                        <br>
                         <div class="col">
+                            <div class="info-title">Datos alimenticios</div>
+                            <hr>
                             <label for="grCarne" class="form-label">Gramos de carne a consumir</label>
-                            <input type="text" class="form-control" id="grCarne">
+                            <input type="text" class="form-control" id="grCarne" formControlName="grCarne">
+                            <div *ngIf="editForm.get('grCarne')?.invalid && editForm.get('grCarne')?.touched" class="text-danger">
+                                Debe ingresar un número válido.
+                              </div>
+                        </div>
+                        <div class="col">
+                            <div>Ensalada</div>
+                            <div class="salad-content">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inputLettuce" value="lettuce" formControlName="inputLettuce">
+                                    <label class="form-check-label" for="inputLettuce">Lechuga</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inputTomato" value="tomato" formControlName="inputTomato">
+                                    <label class="form-check-label" for="inputTomato">Tomate</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inputOnion" value="onion" formControlName="inputOnion">
+                                    <label class="form-check-label" for="inputOnion">Cebolla</label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col container-button">
-                            <button type="submit" class="btn btn-primary submit-button">Confirmar cambios</button>
+                            <button type="submit" class="btn btn-primary submit-button" [disabled]="editForm.invalid">Confirmar cambios</button>
                         </div>
                     </div>
                 </div>

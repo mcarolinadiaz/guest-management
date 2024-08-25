@@ -55,27 +55,38 @@ export class GuestsService {
   constructor() { }
 
   getGuests(): Observable<any[]> {
-    console.log("en el servicio",this.guests);
     return of(this.guests);
   }
 
   getGuestById(id: number): Observable<any> {
-    return of(this.guests.filter((guest: any) => guest.id === id));
+    return of(this.guests.filter((guest: any) => guest.id == id));
   }
 
   createGuest(payload: any): Observable<any> {
-    this.guests.push(payload);
+    const newId = this.guests[this.guests.length-1].id + 1;
+    console.log("en el servicio",payload);
+    let newGuest = {
+      "id": newId,
+      "userName": payload.userName,
+      "confirmation": payload.confirmation ? payload.confirmation : false,
+      "meat": payload.meat,
+      "salad": new Array()
+    };
+    payload.salad?.forEach((element: any) => {
+      return newGuest.salad.push(element);
+    });
+    this.guests.push(newGuest);
     return of(this.guests);
   }
 
   editGuest(id: number, payload: any): Observable<any[]> {
     this.guests = this.guests.map((item: any) => {
       let result = item;
-      if (result.id === id) {
+      if (result.id == id) {
         result.userName = payload.userName;
-        result.confirmation = payload.confirmation;
-        result.meat = payload.meat;
-        result.salad = payload.salad;
+        result.confirmation = payload.confirmation ? payload.confirmation : false;
+        result.meat = payload.meat ? payload.meat : 0;
+        result.salad = payload.salad ? payload.salad : [];
       }
       return result;
     });
