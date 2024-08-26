@@ -15,7 +15,6 @@ const getGuest = (id) => {
 const createGuest = (guest) => {
     // Crea un nuevo invitado
     const guests = addGuest(guest);
-    console.log(guests);
     return guests;
 };
 

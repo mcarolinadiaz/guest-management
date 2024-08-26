@@ -40,8 +40,9 @@ export class CardComponent implements OnInit {
 
   onUpdateConfirmation(confirm: boolean) {
     this.guestsService.updateConfirmation(this.guest.id, confirm).subscribe({
-      next: () => {
+      next: (guest) => {
         let successMessage = 'Cambio de confirmación del invitado ' + this.guest.userName +'.';
+        this.guest = guest;
         this.successMessage.emit(successMessage);
       },
       error: (err) => {

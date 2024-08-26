@@ -40,33 +40,32 @@ export class EditGuestComponent implements OnInit {
           this.guest = {};
           if (guest) {
             this.guest.id = this.id;
-            this.guest.userName = guest[0].userName;
-            this.guest.meat = guest[0].meat;
-            this.guest.salad = guest[0].salad;
-            this.guest.confirmation = guest[0].confirmation;
+            this.guest.userName = guest.userName;
+            this.guest.meat = guest.meat;
+            this.guest.salad = guest.salad;
+            this.guest.confirmation = guest.confirmation;
           }
+          this.initForm(guest);
         });
-        this.initForm();
       }
     });
   }
   
 
-  initForm() {
+  initForm(guest: any) {
     this.editForm = this.fb.group({
-      inputName: [this.guest ? this.guest.userName.split(' ')[0] : '', [Validators.required, Validators.minLength(2)]],  // Nombre
-      inputLastname: [this.guest ? this.guest.userName.split(' ')[1] : '', [Validators.required, Validators.minLength(2)]],  // Apellido
-      grCarne: [this.guest ? this.guest.meat : '', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Gramos de carne (solo números)
-      inputLettuce: [this.guest ? Array(this.guest.salad).includes('lechuga') : false],  // Checkbox de lechuga
-      inputTomato: [this.guest ? this.guest.salad.includes('tomate') : false],   // Checkbox de tomate
-      inputOnion: [this.guest ? this.guest.salad.includes('cebolla') : false]     // Checkbox de cebolla
+      inputName: [guest ? guest.userName.split(' ')[0] : '', [Validators.required, Validators.minLength(2)]],  // Nombre
+      inputLastname: [guest ? guest.userName.split(' ')[1] : '', [Validators.required, Validators.minLength(2)]],  // Apellido
+      grCarne: [guest ? guest.meat : '', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Gramos de carne (solo números)
+      inputLettuce: [guest ? Array(guest.salad).includes('lechuga') : false],  // Checkbox de lechuga
+      inputTomato: [guest ? guest.salad.includes('tomate') : false],   // Checkbox de tomate
+      inputOnion: [guest ? guest.salad.includes('cebolla') : false]     // Checkbox de cebolla
     });
   }
 
   onSubmit() {
     if (this.editForm.valid) {
       // Procesa los datos del formulario
-      console.log('Formulario válido', this.editForm.value);
       let salad = new Array();
       if (this.editForm.value.inputLettuce) {
         salad.push('lechuga');

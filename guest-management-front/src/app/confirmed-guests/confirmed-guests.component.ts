@@ -31,9 +31,13 @@ export class ConfirmedGuestsComponent implements OnInit {
   }
   
   getConfirmedGuests(search?: string) {
-    this.guestsService.getConfirmedGuests().subscribe((value: any[]) => {
+    this.guestsService.getGuests().subscribe((value: any[]) => {
       console.log(value);
-      let result = value.map((item: any) => {
+      // Filtrar los elementos que tienen confirmation en true
+      let confirmedGuests = value.filter((item: any) => item.confirmation === true);
+
+      // Mapea por elementos para añadirles el atributo precio
+      let result = confirmedGuests.map((item: any) => {
         item.price = this.formatNumberWithCommas('' + this.guestsService.calculatePrice(item.meat, item.salad));
         return item;
       })
@@ -68,7 +72,10 @@ export class ConfirmedGuestsComponent implements OnInit {
     // Muestra mensaje de éxito y oculta después de 3 segundos
     this.message = message;
     this.showSuccessMessage = true;
-    setTimeout(() => this.showSuccessMessage = false, 3000);
+    this.getConfirmedGuests();
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
   }
 
   setErrorMessage(message: string) {

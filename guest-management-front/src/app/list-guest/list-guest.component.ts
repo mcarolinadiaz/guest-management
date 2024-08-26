@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GuestsService } from '../service/guests.service';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from "../card/card.component";
@@ -31,7 +31,6 @@ export class ListGuestComponent implements OnInit {
   
   getGuests(search?: string) {
     this.guestsService.getGuests().subscribe((value: any[]) => {
-      console.log(value);
       let result = value.map((item: any) => {
         item.price = this.formatNumberWithCommas('' + this.guestsService.calculatePrice(item.meat, item.salad));
         return item;
@@ -60,7 +59,10 @@ export class ListGuestComponent implements OnInit {
     // Muestra mensaje de éxito y oculta después de 3 segundos
     this.message = message;
     this.showSuccessMessage = true;
-    setTimeout(() => this.showSuccessMessage = false, 3000);
+    this.getGuests();
+    setTimeout(() => {
+      this.showSuccessMessage = false;
+    }, 3000);
   }
 
   setErrorMessage(message: string) {
