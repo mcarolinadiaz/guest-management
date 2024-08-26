@@ -1,4 +1,4 @@
-const {getGuestList, getGuest, createGuest } = require('../use-cases/guestUseCase');
+const {getGuestList, getGuest, createGuest, setGuest } = require('../use-cases/guestUseCase');
 
 const getGuests = (req, res) => {
     // Obtiene lista de guests
@@ -30,8 +30,23 @@ const addGuest = (req, res) => {
       }
 }
 
+const updateGuest = (req, res) => {
+    try {
+        // Obtiene id 
+        const guestId = parseInt(req.params.id);
+        const guestData = req.body;
+        console.log("guestData", guestData);
+        const newGuest = setGuest(guestId, guestData);
+        console.log("newGuest", newGuest);
+        res.json(newGuest);
+      } catch (error) {
+        res.status(404).json({ error: error.message });
+      }
+}
+
 module.exports = {
     getGuests,
     getGuestById,
-    addGuest
+    addGuest,
+    updateGuest
 };

@@ -29,14 +29,22 @@ const getGuestById = (id) => {
 }
 
 const updateGuestById = (id, payload) => {
-    const index = guests.findIndex(element => element.id == id);
-    if (index != -1) {
-        guests[index].userName = payload.userName ? payload.userName : guests[index].userName;
-        guests[index].confirmation = payload.confirmation ? payload.confirmation : guests[index].confirmation;
-        guests[index].meat = payload.meat ? payload.meat : guests[index].meat;
-        guests[index].salad = payload.salad ? payload.salad : guests[index].salad;
+    // Encuentra el índice del invitado en la lista
+    // Convierte el ID a un número entero
+    const guestId = parseInt(id, 10);
+    const index = guests.findIndex(element => element.id == guestId);
+    // Verifica si el invitado existe
+    if (index !== -1) {
+        // Actualiza las propiedades del invitado con los valores del payload, si están presentes
+        guests[index].userName = payload.userName !== undefined ? payload.userName : guests[index].userName;
+        guests[index].confirmation = payload.confirmation !== undefined ? payload.confirmation : guests[index].confirmation;
+        guests[index].meat = payload.meat !== undefined ? payload.meat : guests[index].meat;
+        guests[index].salad = payload.salad !== undefined ? payload.salad : guests[index].salad;
+        // Devuelve el invitado actualizado
+        return guests[index];
     }
-    return index != -1 ? new Guest(id, guests[index].userName, guests[index].confirmation, guests[index].meat, guests[index].salad) : null;
+    // Devuelve null si el invitado no se encontró
+    return null;
 }
 
 module.exports = {
