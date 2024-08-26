@@ -8,4 +8,4 @@ class Guest {
     }
 }
 
-module.exports = Guest;
+module.exports = {Guest};
