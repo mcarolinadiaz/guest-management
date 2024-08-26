@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SearchComponent } from "../search/search.component";
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,5 +10,16 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  searchTerm: string = '';
 
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  onSearch(term: string) {
+    this.searchTerm = term;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { search: this.searchTerm },
+      queryParamsHandling: 'merge'
+    });
+  }
 }

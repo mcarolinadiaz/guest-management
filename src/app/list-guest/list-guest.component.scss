@@ -2,6 +2,7 @@
     display: flex;
     //flex-flow: wrap;
     //justify-content: center;
+    flex-direction: column;
 }
 
 .container-list-guests {
@@ -17,6 +18,7 @@
 
 .create-guest {
     margin-top: auto;
+    margin-left: auto;
 }
 
 .creation-button {

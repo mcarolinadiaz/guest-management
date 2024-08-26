@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GuestsService } from '../../service/guests.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-guest',
@@ -15,14 +15,20 @@ export class EditGuestComponent implements OnInit {
   guest!: any;
   id!: any;
   editForm: FormGroup;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(private route: ActivatedRoute, 
     private guestsService: GuestsService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private location: Location) {
       this.editForm = this.fb.group({
         inputName: ['', [Validators.required, Validators.minLength(2)]],  // Nombre
         inputLastname: ['', [Validators.required, Validators.minLength(2)]],  // Apellido
-        grCarne: ['', [Validators.required, Validators.pattern('^[0-9]+$')]]  // Gramos de carne (solo números)
+        grCarne: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Gramos de carne (solo números)
+        inputLettuce: [false],  // Checkbox de lechuga
+        inputTomato: [false],   // Checkbox de tomate
+        inputOnion: [false]     // Checkbox de cebolla
       });
     }
 
@@ -32,13 +38,28 @@ export class EditGuestComponent implements OnInit {
         this.id = params['id'];
         this.guestsService.getGuestById(this.id).subscribe((guest: any) => {
           this.guest = {};
-          this.guest.id = this.id;
-          this.guest.userName = guest.userName;
-          this.guest.meat = guest.meat;
-          this.guest.salad = guest.salad;
-          console.log(guest);
+          if (guest) {
+            this.guest.id = this.id;
+            this.guest.userName = guest[0].userName;
+            this.guest.meat = guest[0].meat;
+            this.guest.salad = guest[0].salad;
+            this.guest.confirmation = guest[0].confirmation;
+          }
         });
+        this.initForm();
       }
+    });
+  }
+  
+
+  initForm() {
+    this.editForm = this.fb.group({
+      inputName: [this.guest ? this.guest.userName.split(' ')[0] : '', [Validators.required, Validators.minLength(2)]],  // Nombre
+      inputLastname: [this.guest ? this.guest.userName.split(' ')[1] : '', [Validators.required, Validators.minLength(2)]],  // Apellido
+      grCarne: [this.guest ? this.guest.meat : '', [Validators.required, Validators.pattern('^[0-9]+$')]],  // Gramos de carne (solo números)
+      inputLettuce: [this.guest ? Array(this.guest.salad).includes('lechuga') : false],  // Checkbox de lechuga
+      inputTomato: [this.guest ? this.guest.salad.includes('tomate') : false],   // Checkbox de tomate
+      inputOnion: [this.guest ? this.guest.salad.includes('cebolla') : false]     // Checkbox de cebolla
     });
   }
 
@@ -46,18 +67,52 @@ export class EditGuestComponent implements OnInit {
     if (this.editForm.valid) {
       // Procesa los datos del formulario
       console.log('Formulario válido', this.editForm.value);
+      let salad = new Array();
+      if (this.editForm.value.inputLettuce) {
+        salad.push('lechuga');
+      }
+      if (this.editForm.value.inputTomato) {
+        salad.push('tomate');
+      }
+      if (this.editForm.value.inputOnion) {
+        salad.push('cebolla');
+      }
       let payload = {
-        userName: this.guest?.userName && !(this.editForm.value.inputName || this.editForm.value.inputLastname)? this.guest?.userName : (this.editForm.value.inputName + ' ' + this.editForm.value.inputLastname),
-        meat: this.guest?.meat && !this.editForm.value.grCarne ? this.guest?.meat : this.editForm.value.grCarne,
+        userName: this.editForm.value.inputName + ' ' + this.editForm.value.inputLastname,
+        confirmation: this.guest ? this.guest.confirmation : false,
+        meat: this.editForm.value.grCarne,
+        salad: salad
       }
       // Si hubo un id pasado por parametro, se llama a editGuest
       if (this.id) {
-        this.guestsService.editGuest(this.id, payload).subscribe();
+        // Editar invitado existente
+        this.guestsService.editGuest(this.id, payload).subscribe({
+          next: () => {
+            this.successMessage = 'Edición exitosa';
+            setTimeout(() => this.location.back(), 1500);
+          },
+          error: (err) => {
+            this.errorMessage = 'Error en la edición: ' + err.message;
+          }
+        });
       } else {
-        this.guestsService.createGuest(payload);
+        // Crear nuevo invitado
+        this.guestsService.createGuest(payload).subscribe({
+          next: () => {
+            this.successMessage = 'Creación exitosa';
+            setTimeout(() => this.location.back(), 1500);
+          },
+          error: (err) => {
+            this.errorMessage = 'Error en la creación: ' + err.message;
+          }
+        });
       }
     } else {
       console.log('Formulario inválido');
     }
+  }
+
+  onCancel() {
+    this.location.back(); // Navega hacia atrás en el historial del navegador
   }
 }

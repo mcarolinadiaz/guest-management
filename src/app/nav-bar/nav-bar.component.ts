@@ -32,8 +32,7 @@ export class NavBarComponent implements OnInit{
   private updateSectionTitle() {
     // Obtiene el fragmento de ruta actual y actualiza el sectionTitle según sea necesario.
     const currentRoute = this.getActiveRoute(this.activeRoute);
-    let currentPath = currentRoute.snapshot.url.map(segment => segment.path).join('/');
-    currentPath = String(currentPath).split('/')[0];
+    const currentPath = currentRoute.snapshot.url.map(segment => segment.path).join('/').split('/')[0];
     switch (currentPath) {
       case 'guests':
         this.sectionTitle = 'Invitados';

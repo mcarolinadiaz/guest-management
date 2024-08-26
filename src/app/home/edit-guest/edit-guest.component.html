@@ -1,68 +1,13 @@
 <div class="edit-container">
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="row row-container">
-        <!--div class="row row-container">
-            <div class="col img">
-                <img src="assets/user-circle-thin.svg" width="180px" height="180px">
-            </div>
-            <div class="col">
-                Datos personales
-                <div class="row">
-                    <div class="col">
-                        <label for="inputName" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="inputName">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="inputLastName" class="form-label">Apellido</label>
-                        <input type="text" class="form-control" id="inputLastName">
-                    </div>
-                </div>
-                Datos Alimenticios
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
-                            <div class="col">
-                                <label for="grCarne" class="form-label">Gramos de carne a consumir</label>
-                                <input type="text" class="form-control" id="grCarne">
-                            </div>
-                        </div>
-                        </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        Ensalada
-                        <div class="row">
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
-                                        Lechuga
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                        Tomate
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
-                                        <label class="form-check-label" for="flexCheckChecked">
-                                        Cebolla
-                                        </label>
-                                    </div>
-                                </div>
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div-->
+        <!-- Mensajes de éxito y error -->
+        <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+
         <div class="col">
             <div class="row">
                 <div class="col img">
@@ -100,20 +45,21 @@
                             <div>Ensalada</div>
                             <div class="salad-content">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inputLettuce" value="lettuce" formControlName="inputLettuce">
+                                    <input class="form-check-input" type="checkbox" id="inputLettuce" value="false" formControlName="inputLettuce">
                                     <label class="form-check-label" for="inputLettuce">Lechuga</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inputTomato" value="tomato" formControlName="inputTomato">
+                                    <input class="form-check-input" type="checkbox" id="inputTomato" value="false" formControlName="inputTomato">
                                     <label class="form-check-label" for="inputTomato">Tomate</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="inputOnion" value="onion" formControlName="inputOnion">
+                                    <input class="form-check-input" type="checkbox" id="inputOnion" value="false" formControlName="inputOnion">
                                     <label class="form-check-label" for="inputOnion">Cebolla</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col container-button">
+                            <button type="button" class="btn btn-secondary cancel-button" (click)="onCancel()">Cancelar</button>
                             <button type="submit" class="btn btn-primary submit-button" [disabled]="editForm.invalid">Confirmar cambios</button>
                         </div>
                     </div>

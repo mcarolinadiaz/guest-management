@@ -1,7 +1,20 @@
 <div class="container">
-    <div class="list-guests" *ngFor="let guest of guests">
-        <div class="item-list">
-            <app-card [guest]="guest"></app-card>
+    <!-- Mensajes de éxito y error -->
+    <div *ngIf="message && showSuccessMessage" class="alert alert-success">
+        {{ message }}
+    </div>
+    <div *ngIf="message && showErrorMessage" class="alert alert-danger">
+        {{ message }}
+    </div>
+    <div class="container-list-guests">
+        <div class="list-guests" *ngFor="let guest of guests">
+            <div class="item-list">
+                <app-card [guest]="guest" (successMessage)="setSuccessMessage($event)" 
+                    (errorMessage)="setErrorMessage($event)"></app-card>
+            </div>
         </div>
     </div>
+</div>
+<div class="footer">
+    Total ${{calculatePrice()}}
 </div>

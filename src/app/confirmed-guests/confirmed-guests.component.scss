@@ -1,10 +1,35 @@
 .container {
     display: flex;
-    flex-flow: wrap;
-    justify-content: center;
+    //flex-flow: wrap;
+    //justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container-list-guests {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 16px; 
+    justify-content: center; 
+}
+  
+.item-list {
+    flex: 1 1 calc(33.333% - 32px); 
+    box-sizing: border-box; 
 }
 
 .list-guests {
     //display: inline-grid;
     padding: 20px;
+}
+
+  
+.footer {
+    background-color: #f8f9fa; 
+    padding: 10px; 
+    text-align: center; 
+    position: sticky; 
+    bottom: 0; 
+    width: 100%; 
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); 
 }

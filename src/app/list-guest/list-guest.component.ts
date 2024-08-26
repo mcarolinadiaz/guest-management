@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { GuestsService } from '../service/guests.service';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from "../card/card.component";
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-guest',
@@ -13,23 +13,32 @@ import { Router } from '@angular/router';
 })
 export class ListGuestComponent implements OnInit {
   guests!: any[];
+  showSuccessMessage: boolean = false;
+  showErrorMessage: boolean = false;
+  message: string = '';
+  searchTerm: string = '';
   
   constructor(private guestsService: GuestsService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getGuests();
+    this.route.queryParams.subscribe(params => {
+      this.searchTerm = params['search'] || '';
+      this.getGuests(params['search'] ? params['search'] : null);
+    });
   }
   
-  getGuests() {
+  getGuests(search?: string) {
     this.guestsService.getGuests().subscribe((value: any[]) => {
       console.log(value);
       let result = value.map((item: any) => {
         item.price = this.formatNumberWithCommas('' + this.guestsService.calculatePrice(item.meat, item.salad));
         return item;
       })
-      this.guests = result;
+      this.guests = search ? result.filter(guest =>
+        guest.userName.toLowerCase().includes(this.searchTerm.toLowerCase())
+      ) : result;
     });
   }
 
@@ -46,4 +55,19 @@ export class ListGuestComponent implements OnInit {
   onCreateGuest() {
     this.router.navigate(['edit-guest']);
   }
+
+  setSuccessMessage(message: string) {
+    // Muestra mensaje de éxito y oculta después de 3 segundos
+    this.message = message;
+    this.showSuccessMessage = true;
+    setTimeout(() => this.showSuccessMessage = false, 3000);
+  }
+
+  setErrorMessage(message: string) {
+    // Muestra mensaje de error y oculta después de 3 segundos
+    this.message = message;
+    this.showErrorMessage = true;
+    setTimeout(() => this.showErrorMessage = false, 3000);
+  }
+
 }

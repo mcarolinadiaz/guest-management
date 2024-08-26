@@ -100,5 +100,15 @@ export class GuestsService {
   calculatePrice(meat: number, salad: string[]): number {
     return this.pricePerMeat * (meat ? meat : 0) + this.pricePerSaladItem * (salad ? salad.length : 0);
   }
-
+  
+  updateConfirmation(id: number, confirm: boolean): Observable<any> {
+    this.guests = this.guests.map((item: any) => {
+      let result = item;
+      if (result.id == id) {
+        result.confirmation = confirm ? confirm : false;
+      }
+      return result;
+    });
+    return of(this.guests);
+  }
 }

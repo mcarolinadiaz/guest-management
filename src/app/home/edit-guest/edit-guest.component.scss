@@ -7,6 +7,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    background-color: var(--white);
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .row-container-inside {
@@ -28,6 +31,10 @@
 */
 .submit-button {
     display: flex;
+}
+
+.cancel-button {
+    display: flex;
     margin-left: auto;
 }
 
@@ -46,3 +53,8 @@
     font-size: 0.875em;
     margin-top: 5px;
   }
+
+.container-button {
+    display: flex;
+    flex-direction: row;
+}
