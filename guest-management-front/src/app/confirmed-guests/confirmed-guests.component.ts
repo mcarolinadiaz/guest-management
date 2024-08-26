@@ -72,7 +72,7 @@ export class ConfirmedGuestsComponent implements OnInit {
     // Muestra mensaje de éxito y oculta después de 3 segundos
     this.message = message;
     this.showSuccessMessage = true;
-    this.getConfirmedGuests();
+    this.getConfirmedGuests(this.searchTerm);
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 3000);

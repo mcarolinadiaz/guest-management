@@ -86,7 +86,8 @@ export class GuestsService {
   }
 
   editGuest(id: number, payload: any): Observable<any> {
-    /*this.guests = this.guests.map((item: any) => {
+    /*  DEPRECADO por mockeo
+    this.guests = this.guests.map((item: any) => {
       let result = item;
       if (result.id == id) {
         result.userName = payload.userName;

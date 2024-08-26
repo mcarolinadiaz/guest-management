@@ -6,19 +6,8 @@
         </div>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <a class="dropdown-item" routerLink="/"  (click)="changeSectionTitle('Invitados', '')">Invitados</a>
-      <a class="dropdown-item" routerLink="/confirmed-guests" (click)="changeSectionTitle('Confirmados', 'confirmed-guests')">Confirmados</a>
+      <a class="dropdown-item" routerLink="/"  (click)="changeSectionTitle('Invitados', '')" [ngClass]="{'active': selectedTitle && selectedTitle === 'Invitados'}">Invitados</a>
+      <a class="dropdown-item" routerLink="/confirmed-guests" (click)="changeSectionTitle('Confirmados', 'confirmed-guests')" [ngClass]="{'active': selectedTitle && selectedTitle === 'Confirmados'}">Confirmados</a>
       <a class="dropdown-item">Salir</a>
     </div>
-  </div>
-
-  <!--div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-        <img src="assets/user-circle.png" width="40px" height="40px">
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Invitados</a>
-      <a class="dropdown-item" href="#">Confirmados</a>
-      <a class="dropdown-item" href="#">Salir</a>
-    </div>
-  </div-->
+</div>

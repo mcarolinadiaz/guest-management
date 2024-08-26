@@ -30,12 +30,15 @@ export class ListGuestComponent implements OnInit {
   }
   
   getGuests(search?: string) {
+    // Metodo que obtiene lista de invitados
     this.guestsService.getGuests().subscribe((value: any[]) => {
       let result = value.map((item: any) => {
+        // Mapea elemento para agregar atributo precio
         item.price = this.formatNumberWithCommas('' + this.guestsService.calculatePrice(item.meat, item.salad));
         return item;
       })
       this.guests = search ? result.filter(guest =>
+        // Filtrado si se envía por el parametro search
         guest.userName.toLowerCase().includes(this.searchTerm.toLowerCase())
       ) : result;
     });
@@ -59,7 +62,7 @@ export class ListGuestComponent implements OnInit {
     // Muestra mensaje de éxito y oculta después de 3 segundos
     this.message = message;
     this.showSuccessMessage = true;
-    this.getGuests();
+    this.getGuests(this.searchTerm);
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 3000);
