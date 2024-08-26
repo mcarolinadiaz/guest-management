@@ -13,13 +13,15 @@ const getGuest = (id) => {
 };
 
 const createGuest = (guest) => {
-    addGuest(guest);
-    return guest;
+    // Crea un nuevo invitado
+    const guests = addGuest(guest);
+    console.log(guests);
+    return guests;
 };
 
 const setGuest = (id, updatedGuest) => {
+    // Update invitado por id.
     const guest = updateGuestById(id, updatedGuest);
-    console.log("En use-cases",guest);
     if (!guest) {
         throw new Error('Guest not found');
     }

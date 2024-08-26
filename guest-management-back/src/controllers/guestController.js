@@ -20,24 +20,28 @@ const getGuestById = (req, res) => {
 }
 
 const addGuest = (req, res) => {
-    try {
-        // Obtiene id 
-        const guestData = req.body;
-        const newGuest = createGuest(guestData);
-        res.json(newGuest);
-      } catch (error) {
-        res.status(404).json({ error: error.message });
-      }
+    // Obtiene invitado del body
+    const guestData = req.body;
+    if (!guestData.userName) {
+        return res.status(400).json({ error: 'userName is required' });
+    }
+    if (!guestData.meat) {
+        return res.status(400).json({ error: 'meat is required' });
+    }
+    if (!guestData.salad) {
+        return res.status(400).json({ error: 'salad is required' });
+    }
+    const newGuest = createGuest(guestData);
+    res.status(201).json(newGuest);
 }
 
 const updateGuest = (req, res) => {
     try {
         // Obtiene id 
         const guestId = parseInt(req.params.id);
+        //Obtiene body
         const guestData = req.body;
-        console.log("guestData", guestData);
         const newGuest = setGuest(guestId, guestData);
-        console.log("newGuest", newGuest);
         res.json(newGuest);
       } catch (error) {
         res.status(404).json({ error: error.message });
