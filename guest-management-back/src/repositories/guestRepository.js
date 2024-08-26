@@ -21,7 +21,7 @@ const addGuest = (guest) => {
         guest.meat,
         guest.salad
     )
-    this.guests.push(newGuest);
+    return guests.push(newGuest);
 };
 
 const getGuestById = (id) => {

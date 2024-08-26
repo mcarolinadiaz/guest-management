@@ -1,4 +1,4 @@
-const { getAllGuests, getGuestById } = require('../repositories/guestRepository');
+const { getAllGuests, getGuestById, addGuest } = require('../repositories/guestRepository');
 
 const getGuestList = () => {
     return getAllGuests();
@@ -12,7 +12,16 @@ const getGuest = (id) => {
     return guest;
 }
 
+const createGuest = (guest) => {
+    const guests = addGuest(guest);
+    if (!guests) {
+        throw new Error('Guest not found');
+    }
+    return guests;
+}
+
 module.exports = {
     getGuestList,
-    getGuest
+    getGuest,
+    createGuest
 };
