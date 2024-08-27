@@ -39,29 +39,29 @@ Para ejecutar este proyecto, necesitas tener instalados:
 ## Instalación
 
 1. **Clonar el repositorio:**
-   ```bash
+   ```
    git clone https://github.com/mcarolinadiaz/guest-management.git
    cd guest-management
 
 2. **Instalar dependencias para el frontend**
-    ```bash
+    ```
     cd guest-management-front
     npm install
 
 3. **Instalar dependencias para el backend**
-    ```bash
+    ```
     cd guest-management-back
     npm install
 
 ## Ejecucación
 
 ### Frontend
-    ```bash
+    ```
     cd guest-management-front
     ng serve
 
 ### Backend
-    ```bash
+    ```
     cd guest-management-back
     npm start
 
@@ -70,10 +70,10 @@ Para ejecutar este proyecto, necesitas tener instalados:
 ### Frontend
 Los tests unitarios para los componentes de Angular (Card, Edit, ConfirmGuest) están implementados con Jasmine.
 Para ejecutar los tests:
-    ```bash
+    ```
     ng test
 
 ### Backend
 Los tests unitarios para el backend de Express están implementados con Chai, Supertest y Mocha. Para ejecutar los tests:
-    ```bash
+    ```
     npm test
