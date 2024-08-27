@@ -31,7 +31,6 @@ export class ConfirmedGuestsComponent implements OnInit {
   
   getConfirmedGuests(search?: string) {
     this.guestsService.getGuests().subscribe((value: any[]) => {
-      console.log(value);
       // Filtrar los elementos que tienen confirmation en true
       let confirmedGuests = value.filter((item: any) => item.confirmation === true);
 
