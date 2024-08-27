@@ -19,6 +19,12 @@ app.post('/guests', addGuest);
 
 app.put('/guests/:id', updateGuest);
 
-app.listen(PORT, () => {
-    console.log(`Servidor escuchando en http://localhost:${PORT}`);
-});
+// Exporta la instancia de Express para pruebas
+module.exports = app;
+
+// Inicia el servidor solo si el archivo es ejecutado directamente
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Servidor escuchando en http://localhost:${PORT}`);
+    });
+}
