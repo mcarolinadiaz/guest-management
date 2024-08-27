@@ -23,7 +23,6 @@ export class ConfirmedGuestsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getConfirmedGuests();
     this.route.queryParams.subscribe(params => {
       this.searchTerm = params['search'] || '';
       this.getConfirmedGuests(params['search'] ? params['search'] : null);

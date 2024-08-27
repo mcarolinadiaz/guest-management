@@ -25,11 +25,20 @@
 
   
 .footer {
-    background-color: #f8f9fa; 
     padding: 10px; 
+    color: var(--light-gray);
     text-align: center; 
     position: sticky; 
     bottom: 0; 
     width: 100%; 
-    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--light-dark-blue); 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3px;
+}
+
+.footer-total {
+    font-weight: 800;
 }
