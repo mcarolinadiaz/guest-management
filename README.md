@@ -59,11 +59,13 @@ Para ejecutar este proyecto, necesitas tener instalados:
     ```
     cd guest-management-front
     ng serve
+    ```
 
 ### Backend
     ```
     cd guest-management-back
     npm start
+    ```
 
 ## Testing
 
@@ -72,8 +74,10 @@ Los tests unitarios para los componentes de Angular (Card, Edit, ConfirmGuest) e
 Para ejecutar los tests:
     ```
     ng test
+    ```
 
 ### Backend
 Los tests unitarios para el backend de Express están implementados con Chai, Supertest y Mocha. Para ejecutar los tests:
     ```
     npm test
+    ```
