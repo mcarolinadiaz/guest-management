@@ -31,11 +31,18 @@
 */
 .submit-button {
     display: flex;
+    font-size: small;
+    align-self: center;
+    background-color: var(--dark-blue);
 }
 
 .cancel-button {
     display: flex;
     margin-left: auto;
+    background-color: var(--light-gray);
+    color: var(--dark-color);
+    font-size: small;
+    align-self: center;
 }
 
 .col {
@@ -57,4 +64,17 @@
 .container-button {
     display: flex;
     flex-direction: row;
+    margin-top: 30px;
+    gap: 10px;
+    background-color: var(--light-gray);
+    padding-top: 30px;
+}
+
+.category-label {
+    font-size: small;
+    margin-top: 10px;
+}
+
+.form-control, .form-check-label {
+    font-size: smaller;
 }

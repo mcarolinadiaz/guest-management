@@ -1,0 +1,33 @@
+.container-search {
+    background-color: var(--light-blue);
+    display: flex;
+    justify-content: center;
+}
+
+.search-form {
+    width: 74%;
+    padding: 10px;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.form-control {
+    padding-right: 30px; /* Espacio para el ícono */
+}
+
+.search-icon {
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background-color: var(--light-dark-blue);
+    cursor: pointer;
+    padding: -1px;
+    border: solid;
+    border-color: var(--light-dark-blue);
+    margin: 0;
+}
