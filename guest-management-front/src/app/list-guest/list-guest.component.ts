@@ -3,6 +3,7 @@ import { GuestsService } from '../service/guests.service';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from "../card/card.component";
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-list-guest',
@@ -25,7 +26,7 @@ export class ListGuestComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchTerm = params['search'] || '';
-      this.getGuests(params['search'] ? params['search'] : null);
+      this.getGuestsWithErrorHandling(params['search'] ? params['search'] : null);
     });
   }
   
@@ -41,6 +42,24 @@ export class ListGuestComponent implements OnInit {
         // Filtrado si se envía por el parametro search
         guest.userName.toLowerCase().includes(this.searchTerm.toLowerCase())
       ) : result;
+    });
+  }
+
+  //mejora de getGuests para agregar manejo de errores
+  getGuestsWithErrorHandling(search?: string) {
+    this.guestsService.getGuests().pipe(
+      map((guests: any[]) =>
+        guests.map((guest => ({
+          ...guest,
+          price: this.formatNumberWithCommas(String(this.guestsService.calculatePrice(guest.meat, guest.salad)))
+        })))),
+      map(guests => search ? guests.filter(guest => guest.userName.toLowerCase().includes(search.toLowerCase())) : guests),
+      catchError(error => {
+        console.error('Error al obtener los invitados:', error);
+        return of([]); // Devuelve un array vacío en caso de error
+      })
+    ).subscribe(guests => {
+      this.guests = guests;
     });
   }
 
@@ -62,7 +81,7 @@ export class ListGuestComponent implements OnInit {
     // Muestra mensaje de éxito y oculta después de 3 segundos
     this.message = message;
     this.showSuccessMessage = true;
-    this.getGuests(this.searchTerm);
+    this.getGuestsWithErrorHandling(this.searchTerm);
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 3000);
